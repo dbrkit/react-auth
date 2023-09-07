@@ -40,6 +40,7 @@ export default function AuthProvider<User, Role = string>({
         ...user,
         id,
       });
+      return { id, ...user };
     });
 
   const handleLogout = () =>
