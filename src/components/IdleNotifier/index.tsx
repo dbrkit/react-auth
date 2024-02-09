@@ -2,11 +2,12 @@ import { useEffect } from "react";
 import { useIdle, usePrevious } from "@mantine/hooks";
 
 import useAuth from "../../hooks/useAuth";
+import { AuthApi } from "types";
 
 const IDLE_TIMER = 3e5;
 
-const IdleNotifier = () => {
-  const { isAuth, lastActivity } = useAuth();
+function IdleNotifier<User, Role>() {
+  const { isAuth, lastActivity } = useAuth<AuthApi<User, Role>, User, Role>();
   const isIdle = useIdle(IDLE_TIMER, {
     initialState: false,
   });
@@ -19,10 +20,9 @@ const IdleNotifier = () => {
       // User is idle and authenticated, call the callback
       lastActivity && lastActivity();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isIdle, isAuth, previousValue]);
 
   return null;
-};
+}
 
 export default IdleNotifier;

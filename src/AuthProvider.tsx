@@ -1,46 +1,53 @@
-import { PropsWithChildren, useEffect, useState, createContext } from "react";
+import React, {
+  PropsWithChildren,
+  useEffect,
+  useState,
+  createContext,
+} from "react";
 import { AuthApi, Status, IUser } from "./types";
 
-export interface AuthProviderInterface extends Omit<AuthApi, "getUser"> {
-  error?: any;
+type AuthProviderInterface<User, Role> = {
+  error?: string;
   isAuth?: boolean;
-  user: any;
-  setStatus: any;
-  refresh: any;
+  setStatus: (status: Status) => void;
+  user: IUser<User, Role>;
+  refresh: () => void;
   status: Status;
-}
+};
+
+export type AuthInterface<T, User, Role> = Partial<
+  AuthProviderInterface<User, Role>
+> &
+  T;
 
 export const AuthContext = createContext<
-  AuthProviderInterface | Partial<AuthProviderInterface>
+  AuthInterface<unknown, unknown, unknown>
 >({});
 
 // @todo use react-query
-export default function AuthProvider<User, Role = string>({
+export default function AuthProvider<
+  T extends AuthApi<User, Role>,
+  User,
+  Role = string
+>({
   children,
-  auth: {
-    login,
-    logout,
-    getUser,
-    lastActivity,
-    checkResetPasswordToken,
-    resetPassword,
-    forgotPassword,
-  },
-}: PropsWithChildren<{ auth: AuthApi }>) {
+  auth: { login, logout, getUser, ...auth },
+}: PropsWithChildren<{
+  auth: T extends AuthApi<User, Role> ? AuthApi<User, Role> : T;
+}>) {
   const [status, setStatus] = useState<Status>(Status.INITIAL);
   const [user, setUser] = useState<IUser<User, Role>>();
-  const [error, setError] = useState<any>();
+  const [error, setError] = useState<string>();
 
   const isAuth = status == Status.AUTHENTICATED;
 
-  const handleLogin = (email: string, password: string) =>
-    login(email, password).then(({ id, ...user }) => {
+  const handleLogin = (...params) =>
+    login(...params).then(({ ...user }) => {
       setStatus(Status.AUTHENTICATED);
       setUser({
         ...user,
-        id,
       });
-      return { id, ...user };
+      return { ...user };
     });
 
   const handleLogout = () =>
@@ -74,7 +81,6 @@ export default function AuthProvider<User, Role = string>({
       return;
     }
     fetchUser();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAuth, user]);
 
   return (
@@ -87,11 +93,8 @@ export default function AuthProvider<User, Role = string>({
         login: handleLogin,
         logout: handleLogout,
         refresh: fetchUser,
-        lastActivity,
-        checkResetPasswordToken,
-        resetPassword,
-        forgotPassword,
         setStatus,
+        ...auth,
       }}
     >
       {children}

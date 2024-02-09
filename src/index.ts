@@ -1,7 +1,4 @@
-export {
-  default as AuthProvider,
-  type AuthProviderInterface,
-} from "./AuthProvider";
+export { default as AuthProvider, type AuthInterface } from "./AuthProvider";
 
 export { default as useAuth } from "./hooks/useAuth";
 export { default as useSession } from "./hooks/useSession";

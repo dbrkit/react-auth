@@ -1,4 +1,4 @@
-import {
+import React, {
   FC,
   Fragment,
   PropsWithChildren,
@@ -10,12 +10,13 @@ import { Navigate } from "@dbrkit/react-router";
 
 import CheckPermissions from "../CheckPermissions";
 import useSession from "../../hooks/useSession";
+import { Role } from "types";
 
 export interface AuthRouteProps<Role> extends PropsWithChildren {
-  loadingFallback?: any;
-  suspenseFallback?: any;
+  loadingFallback?: React.ElementType;
+  suspenseFallback?: React.ReactNode;
   redirectRoute?: string;
-  InvalidUserRoleFallback?: any;
+  InvalidUserRoleFallback?: React.ElementType;
   isPrivate?: boolean;
   shouldRedirect?: boolean;
   roles?: Role[];
@@ -26,11 +27,10 @@ const ComponentLoader = ({
   loading,
   children,
 }: PropsWithChildren<{ loading: boolean }>) => {
-  if (loading) return <></>;
-  return children;
+  return <Fragment>{!loading ? children : null}</Fragment>;
 };
 
-const AuthRoute: FC<AuthRouteProps<any>> = ({
+const AuthRoute: FC<AuthRouteProps<Role<string>>> = ({
   children,
   roles,
   shouldRedirect = true,

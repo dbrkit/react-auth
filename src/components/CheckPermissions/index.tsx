@@ -1,23 +1,26 @@
-import { Component, PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
 import useSession from "../../hooks/useSession";
+import React from "react";
 
 export interface PermissionProps<Role> extends PropsWithChildren {
   roles?: Role[];
   auth: boolean;
   superAdmin: boolean;
-  accessDeniedComponent: any;
+  accessDeniedComponent: React.ElementType;
 }
 
 /**
  * A component that give access to children/component if criteria are met.
  */
-const CheckPermissions: (props: PermissionProps<any>) => any = ({
+function CheckPermissions({
   roles,
   auth = true,
-  accessDeniedComponent: AccessDeniedComponent = () => <>Access Denied</>,
+  accessDeniedComponent: AccessDeniedComponent = () => (
+    <React.Fragment>Access Denied</React.Fragment>
+  ),
   children,
   superAdmin,
-}) => {
+}: PermissionProps<string>) {
   const { hasRole, isAdmin, isAuth } = useSession();
   const rolesCheck = roles ? roles.some((role) => hasRole(role)) : true;
 
@@ -26,8 +29,7 @@ const CheckPermissions: (props: PermissionProps<any>) => any = ({
     ((!auth || isAuth) && // The authentication is not needed or needed and user is auth
       !!rolesCheck); // no roles or role met
 
-  if (isAllowed) return children ?? null;
-  return <AccessDeniedComponent /> ?? null;
-};
+  return <>{isAllowed ? children : <AccessDeniedComponent /> ?? null}</>;
+}
 
 export default CheckPermissions;

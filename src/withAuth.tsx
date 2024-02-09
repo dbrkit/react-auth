@@ -1,11 +1,11 @@
-import { ReactElement, ReactNode } from "react";
+import React, { ReactElement, ReactNode } from "react";
 import { Navigate } from "@dbrkit/react-router";
 
 import AuthRoute, { AuthRouteProps } from "./components/AuthRoute";
 import { Role } from "./types";
 
-export default function withAuth<P extends object, R = unknown>(
-  WrappedComponent: React.ComponentType<any> & {
+export default function withAuth<P extends object, R extends string>(
+  WrappedComponent: React.ComponentType<unknown> & {
     getLayout?: (page: ReactElement) => ReactNode;
   },
   authProps: AuthRouteProps<Role<R>> = {

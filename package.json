@@ -1,7 +1,7 @@
 {
   "name": "@dbrkit/react-auth",
   "description": "",
-  "version": "0.0.1-beta5",
+  "version": "0.0.1-beta6",
   "main": "./dist/index.cjs.js",
   "types": "./dist/index.d.ts",
   "files": [
@@ -31,7 +31,11 @@
   "devDependencies": {
     "@types/node": "^20.4.8",
     "@types/react": "^18.2.19",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
     "@vitejs/plugin-react": "^3.0.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
     "typescript": "^5.1.6",
     "vite": "^4.0.4",
     "vite-plugin-dts": "^1.7.1",

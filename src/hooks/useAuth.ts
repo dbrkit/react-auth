@@ -1,7 +1,9 @@
 import { useContext } from "react";
 
-import { AuthContext } from "../AuthProvider";
+import { AuthContext, AuthInterface } from "../AuthProvider";
+import { AuthApi } from "types";
 
-export default function useAuth() {
-  return useContext(AuthContext);
+export default function useAuth<T extends AuthApi<U, R>, U, R>() {
+  // @ts-expect-error
+  return useContext<AuthInterface<T, U, R>>(AuthContext);
 }

@@ -1,8 +1,8 @@
-import { Role, Status } from "../types";
-import useAuth from "../hooks/useAuth";
+import { AuthApi, Role, Status } from "../types";
+import useAuth from "./useAuth";
 
-export default function useSession<R = string>() {
-  const { user, status, isAuth, lastActivity, ...rest } = useAuth();
+function useSession<T extends AuthApi<User, R>, User, R>() {
+  const { user, status, ...rest } = useAuth<T, User, R>();
 
   const hasRole = (role: Role<R>) => {
     return user?.roles
@@ -18,10 +18,11 @@ export default function useSession<R = string>() {
   return {
     user,
     status,
-    isAuth,
     isAdmin,
     hasRole,
     isLoading,
     ...rest,
   };
 }
+
+export default useSession;

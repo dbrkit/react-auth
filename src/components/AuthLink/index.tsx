@@ -1,6 +1,8 @@
+import React from "react";
+import { Link } from "@dbrkit/react-router";
+
 import { Role } from "../../types";
 import CheckPermissions, { PermissionProps } from "../CheckPermissions";
-import { Link } from "@dbrkit/react-router";
 
 interface AuthLinkPropsType extends Partial<PermissionProps<Role<string>>> {}
 
