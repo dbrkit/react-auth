@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import React from "react";
-import AuthProvider from "../src/AuthProvider";
-import useSession from "../src/hooks/useSession";
+import React, { PropsWithChildren } from "react";
+
+// import AuthProvider from "../src/AuthProvider";
+// import useSession from "../src/hooks/useSession";
+// import AuthRoute from "../src/components/AuthRoute";
+import { AuthProvider, useSession, AuthRoute, AuthLink } from "../dist";
 
 type Role = "admin" | "supervisor";
 type User = {
@@ -10,6 +13,7 @@ type User = {
   name: string;
   email: string;
 };
+
 type Api = {
   login: (username: string, password: string) => Promise<User>;
   logout: () => Promise<string>;
@@ -33,10 +37,17 @@ const auth = {
   getUser: async () => Promise.resolve(mockUser),
 };
 
-export default function Test() {
-  return (
-    <AuthProvider auth={auth}>
-      <UserProfile />
-    </AuthProvider>
-  );
+function Provider({ children }: PropsWithChildren) {
+  return <AuthProvider auth={auth}>{children}</AuthProvider>;
 }
+
+const PrivateRoute = () => (
+  <Provider>
+    <AuthRoute isPrivate shouldRedirect={false} isAdmin>
+      <>Hello World</>
+      <UserProfile />
+    </AuthRoute>
+  </Provider>
+);
+
+const Link = () => <AuthLink roles={["supervisor"]}>Authorized link</AuthLink>;

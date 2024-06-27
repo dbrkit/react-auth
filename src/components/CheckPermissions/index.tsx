@@ -1,6 +1,6 @@
-import { PropsWithChildren } from "react";
-import useSession from "../../hooks/useSession";
-import React from "react";
+import React, { PropsWithChildren } from "react";
+
+import useSession from "hooks/useSession";
 
 export interface PermissionProps<Role> extends PropsWithChildren {
   roles?: Role[];

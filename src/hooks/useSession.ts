@@ -1,5 +1,5 @@
-import { AuthApi, Role, Status } from "../types";
-import useAuth from "./useAuth";
+import { AuthApi, Role, Status } from "types";
+import useAuth from "hooks/useAuth";
 
 function useSession<T extends AuthApi<User, R>, User, R>() {
   const { user, status, ...rest } = useAuth<T, User, R>();

@@ -1,7 +1,7 @@
 {
   "name": "@dbrkit/react-auth",
   "description": "",
-  "version": "0.0.1-beta6",
+  "version": "0.0.1-beta7",
   "main": "./dist/index.cjs.js",
   "types": "./dist/index.d.ts",
   "files": [
@@ -24,10 +24,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@mantine/hooks": "^6.0.18",
-    "react": "^18.2.0"
-  },
   "devDependencies": {
     "@types/node": "^20.4.8",
     "@types/react": "^18.2.19",
@@ -43,6 +39,8 @@
     "vite-tsconfig-paths": "^4.0.3"
   },
   "peerDependencies": {
-    "@dbrkit/react-router": "0.0.1-beta3"
+    "@dbrkit/react-router": "0.0.1-beta3",
+    "@mantine/hooks": "^6.0.18",
+    "react": "^18.2.0"
   }
 }

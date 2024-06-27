@@ -4,7 +4,8 @@ import React, {
   useState,
   createContext,
 } from "react";
-import { AuthApi, Status, IUser } from "./types";
+
+import { AuthApi, Status, IUser } from "types";
 
 type AuthProviderInterface<User, Role> = {
   error?: string;
@@ -70,7 +71,7 @@ export default function AuthProvider<
         // If an error happen, set the auth flag to false since we cannot be sure whether the user
         // is authenticated or not.
         setStatus(Status.FAILED);
-        if (e.statusCode !== 401) {
+        if (e?.statusCode !== 401) {
           setError(e.message);
         }
       });
