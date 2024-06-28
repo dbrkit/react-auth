@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useIdle, usePrevious } from "@mantine/hooks";
 
 import useAuth from "hooks/useAuth";
-import { AuthApi } from "types";
+import { AuthApi } from "../../types";
 
 const IDLE_TIMER = 3e5;
 

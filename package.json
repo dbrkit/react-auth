@@ -1,7 +1,7 @@
 {
   "name": "@dbrkit/react-auth",
   "description": "",
-  "version": "0.0.1-beta7",
+  "version": "0.0.1-beta9",
   "main": "./dist/index.cjs.js",
   "types": "./dist/index.d.ts",
   "files": [

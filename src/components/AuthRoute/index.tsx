@@ -8,9 +8,9 @@ import React, {
 } from "react";
 import { Navigate } from "@dbrkit/react-router";
 
-import CheckPermissions from "components/CheckPermissions";
-import useSession from "hooks/useSession";
-import { Role } from "types";
+import CheckPermissions from "../CheckPermissions";
+import useSession from "../../hooks/useSession";
+import { Role } from "../../types";
 
 export interface AuthRouteProps<Role> extends PropsWithChildren {
   loadingFallback?: React.ElementType;

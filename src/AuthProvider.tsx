@@ -5,7 +5,7 @@ import React, {
   createContext,
 } from "react";
 
-import { AuthApi, Status, IUser } from "types";
+import { AuthApi, Status, IUser } from "./types";
 
 type AuthProviderInterface<User, Role> = {
   error?: string;
